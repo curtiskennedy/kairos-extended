@@ -7,10 +7,10 @@ class DistDataset(Dataset):
         self.d = distribution
         self.n = NodeFeatureLen
         self.l = NumNodes
-        self.nodes = []
+        self.nodeslist = []
         for node in range(NumNodes):
-            self.nodes.append(distribution.sample(NodeFeatureLen))
-        self.nodes = torch.FloatTensor(self.nodes)
+            self.nodeslist.append(distribution.sample(NodeFeatureLen))
+        self.nodes = torch.FloatTensor(self.nodeslist)
 
     def __len__(self):
         return self.l

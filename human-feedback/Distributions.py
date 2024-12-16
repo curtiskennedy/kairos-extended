@@ -1,23 +1,21 @@
 """
-Experimental setup utilizes 4 distributions:
+Experimental setup utilizes 3 distributions:
 
 BENIGN DISTRIBUTION
 
 DRIFTING DISTRIBUTION
 
-DRIFTED DISTRIBUTION
-
 THREAT DISTRIBUTION
 
 Each distribution is a normal distribution with mean, variance, max cutoff, min cutoff
 
-The benign distribution has some overlap with the drifting distribution, which has some overlap with the drifted distribution
+The benign distribution has some overlap with the drifting distribution
 
-The drifted distribution, the benign distribution, and the threat distribution have no overlap
+The benign distribution, and the threat distribution have no overlap
 """
 import torch
+torch.manual_seed(0)
 import matplotlib.pyplot as plt
-import numpy as np
 
 
 class NormalDistribution:
@@ -36,9 +34,9 @@ class NormalDistribution:
                 samples.append(sample.item())
         return samples
     
-    def visualize(self, N: int, filename: str, bins: int, title: str) -> None:
+    def visualize(self, N: int, filename: str, bins: int, title: str, color: str) -> None:
         samples = self.sample(N)
-        plt.hist(samples, bins=bins, edgecolor='black')
+        plt.hist(samples, bins=bins, color=color)
         plt.xlabel('Value')
         plt.ylabel('Frequency')
         plt.title(title)
@@ -61,14 +59,6 @@ class DRIFTING(NormalDistribution):
         min = 25
         super().__init__(mean,std,max,min)
 
-class DRIFTED(NormalDistribution):
-    def __init__(self) -> None:
-        mean = 20
-        std = 3
-        max = 30
-        min = 10
-        super().__init__(mean,std,max,min)
-
 class THREAT(NormalDistribution):
     def __init__(self) -> None:
         mean = 500
@@ -86,15 +76,12 @@ def is_threat(vec):
 
 if __name__ == "__main__":
     print("TESTING DISTRIBUTIONS.PY")
-    # N = NormalDistribution(10, 2, 20, 0)
+
     B = BENIGN()
-    B.visualize(100000, 'Benign.png', 100, 'Benign')
+    B.visualize(100000, 'Benign.png', 100, 'Benign Data Only', "green")
 
-    D1 = DRIFTING()
-    D1.visualize(100000, 'Drifting.png', 100, 'Drifting')
-
-    # D2 = DRIFTED()
-    # D2.visualize(1000, 'Drifted.png', 40, 'Drifted')
+    D = DRIFTING()
+    D.visualize(100000, 'Drifting.png', 100, 'Benign and Drifting Data', "orange")
 
     T = THREAT()
-    T.visualize(100000, 'Threat.png', 100, 'Threat')
+    T.visualize(100000, 'Threat.png', 100, 'Benign, Drifting, and Threat Data', "red")
