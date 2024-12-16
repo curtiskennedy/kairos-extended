@@ -164,3 +164,4 @@ cython_debug/
 
 # Exclude config.json file for API keys
 /llm-extension/config.json
+*.DS_Store

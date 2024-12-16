@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View PDF</title>
+</head>
+<body>
+    <h1 id="pdfTitle"></h1>
+
+    <embed id="pdfViewer" type="application/pdf" width="100%" height="600px">
+
+    <br><br>
+    <div id="textContent"></div>
+
+    <br>
+    <a href="/">Back to list</a> 
+
+    <script>
+        const filename = window.location.pathname.split('/').pop();
+        fetch('/view-pdf/' + filename)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('pdfViewer').src = '/pdf/' + data.pdf;
+                document.getElementById('pdfTitle').textContent = data.pdf;
+                document.getElementById('textContent').textContent = data.textContent;
+            })
+            .catch(error => {
+                console.error('Error fetching PDF or text content:', error);
+                alert('Failed to load PDF or text content.');
+            });
+    </script>
+</body>
+</html>
