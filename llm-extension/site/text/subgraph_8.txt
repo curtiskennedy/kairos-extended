@@ -1,0 +1,1 @@
+The graph shows typical behavior of syslogd writing to system log files such as /var/log/maillog and /var/log/auth.log. However, the write operation to /home/frank/Archives.lock, a file in a user-specific directory, is anomalous and potentially indicates misuse of the syslogd process to create or manipulate unauthorized files.
