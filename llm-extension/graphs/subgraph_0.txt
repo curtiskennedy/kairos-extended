@@ -1,0 +1,7 @@
+// the test
+digraph MyPicture {
+	graph [rankdir=LR]
+	18300097918531082961 [label="{'subject': 'newsyslog'}0" color=blue shape=box]
+	6468917867092599697 [label="{'file': '/etc/newsyslog.conf.d/amd.conf'}0" color=blue shape=oval]
+	18300097918531082961 -> 6468917867092599697 [label=EVENT_CLOSE color=blue]
+}
